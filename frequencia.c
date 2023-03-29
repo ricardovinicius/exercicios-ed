@@ -70,7 +70,10 @@ void print_lista(node* list)
 
     while (n != NULL)
     {
-        printf("%c %d \n", n->letra, n->frequencia);
+        if(n->frequencia != 0)
+        {
+            printf("%c %d\n", n->letra, n->frequencia);
+        }
         n = n->next;
     }
 }
