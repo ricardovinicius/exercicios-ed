@@ -41,25 +41,24 @@ node* lista_frequencia(char* string)
     node* n = (node*) malloc(sizeof(node));
     n->next = NULL;
 
-    for(int i = 0; i < strlen(string); i++)
+    for(int asc = 0; asc < 256; asc++)
     {
-        n->letra = string[i];
-        n->frequencia = 1;
-
-        string[i] = '*';
-
-        for(int j = i + 1; j < strlen(string); j++)
+        int freq = 0;
+        for(int i = 0; i < strlen(string); i++)
         {
-            if (n->letra == string[j] && string[j] != '*')
+            if(string[i] == asc)
             {
-                n->frequencia++;
-                string[j] = '*';
+                freq++;
             }
         }
-
-        node* new_node = (node*) malloc(sizeof(node));
-        new_node->next = n;
-        n = new_node;
+        if(freq != 0)
+        {
+            node* new_node = (node*) malloc(sizeof(node));
+            new_node->letra = asc;
+            new_node->frequencia = freq;
+            new_node->next = n;
+            n = new_node;
+        }
     }
 
     return n;
@@ -71,12 +70,7 @@ void print_lista(node* list)
 
     while (n != NULL)
     {
-        if(n->letra != '*' && n->frequencia != 0)
-        {
-            printf("%c %d \n", n->letra, n->frequencia);
-        }
+        printf("%c %d \n", n->letra, n->frequencia);
         n = n->next;
     }
-
-    printf("\n");
 }
