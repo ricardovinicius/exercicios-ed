@@ -57,28 +57,19 @@ node* find_intersection(node* list1, node* list2)
 {
     node* n = list1;
     node* intersection = NULL;
-    node* last_node = NULL;
 
     while (n != NULL) {
         if (is_in_list(n->value, list2)) {
             node* new_node = (node*)malloc(sizeof(node));
             new_node->value = n->value;
-            new_node->next = NULL;
-
-            if (last_node == NULL) {
-                intersection = new_node;
-                last_node = new_node;
-            } else {
-                last_node->next = new_node;
-                last_node = new_node;
-            }
+            new_node->next = intersection;
+            intersection = new_node;
         }
         n = n->next;
     }
 
     return intersection;
 }
-
 
 bool is_in_list(int value, node* list)
 {
@@ -102,6 +93,7 @@ void print_list(node* list)
 
     if(n == NULL) {
         printf("VAZIO");
+        return -1;
     }
 
     while (n != NULL && i < 20) {
@@ -121,36 +113,22 @@ void print_list(node* list)
         }
     }
 
-    for (int i = 0; i < size; i++) {
-        printf("%d\n", arr[i]);
-    }
-}
+    int previous = arr[0];
+    printf("%d\n", previous);
 
-void print_ordered(node* list)
-{
-    node* n  = list;
-    int lowest = find_the_lowest(n, 0);
-    printf("%d\n", lowest);
-
-    while(n != NULL) {
-        lowest = find_the_lowest(n, lowest);
-        printf("%d\n", lowest);
-        n = n->next;
-    }
-
-}
-
-int find_the_lowest(node* list, int base)
-{
-    node* n = list;
-    int lowest = n->value;
-
-    while (n != NULL) {
-        if (n->value < lowest || n->value > base) {
-            lowest = n->value;
+    for (int i = 1; i < size; i++) 
+    {
+        while (i < size && arr[i] == previous) 
+        {
+            i++;
         }
-        n = n->next;
+        if (i < size) {
+            printf("%d\n", arr[i]);
+            previous = arr[i];
+        }
     }
 
-    return lowest;
 }
+
+
+
