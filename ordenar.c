@@ -1,76 +1,80 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 typedef struct node
 {
-    int value;
-    struct node *next;
-}node;
+    int data;
+    struct node* next;
+}
+node;
 
 node* scan_list();
-void bubble_sort_list(node* list);
 void print_list(node* list);
+void sort_list(node* list);
 
 int main(void)
 {
     node* list = scan_list();
-    bubble_sort_list(list);
+    sort_list(list);
     print_list(list);
 }
 
 node* scan_list()
 {
-    node* head = NULL;
+    node* n = NULL;
+    int buffer;
 
-    int value;
-
-    while(scanf("%d", &value) != EOF)
+    while(scanf("%d", &buffer) != EOF)
     {
-        node* new_node = (node*) malloc(sizeof(node));
-        new_node->value = value;
-        new_node->next = head;
-        head = new_node;
+        node* new_node = (node*)malloc(sizeof(node));
+        new_node->data = buffer;
+        new_node->next = n;
+        n = new_node;
     }
 
-    return head;
+    return n;
 }
 
 void print_list(node* list)
 {
     node* n = list;
 
-    while (n != NULL)
+    while(n != NULL)
     {
-        printf("%d ", n->value);
+        printf("%d ", n->data);
         n = n->next;
     }
+
+    printf("\n");
+
+    return;
 }
 
-void selection_sort_list(node* list)
+void sort_list(node* list)
 {
+    //node* selector;
+    node* cursor;
     node* n = list;
+    node* low;
 
-    while (n != NULL)
+    while(n != NULL)
     {
-        int min = n->value;
-        node* m = n->next;
+        low = n;
+        cursor = n->next;
 
-        while (m != NULL)
+        while(cursor != NULL)
         {
-            if (m->value < min->value)
+            if(cursor->data < low->data)
             {
-                min = m;
+                low = cursor;
             }
-
-            m = m->next;
+            cursor = cursor->next;
         }
-
-        int temp = n->value;
-        n->value = min->value;
-        min->value = temp;
+        int tmp = n->data;
+        n->data = low->data;
+        low->data = tmp;
 
         n = n->next;
     }
-}
 
+}
