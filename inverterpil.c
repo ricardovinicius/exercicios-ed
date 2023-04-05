@@ -60,21 +60,29 @@ void inverte_palavras_frase(char frase[])
     int j = 0;
     for(int i = 0; frase[i] != '\0'; i++) 
     {
-        if(frase[i] == ' ') 
+        if(frase[i] != ' ') 
         {
             push(pil, frase[i]);
         } 
-        else if(frase[i] == ' ' || frase[i+1] == '\0')
+        else 
         {
-
             while(!isempty(pil)) 
             {
                 frase[j] = pop(pil);
                 j++;
             }
-            j = i + 1;
+            frase[j] = ' ';
+            j++;
         }
     }
+
+    while(!isempty(pil)) 
+    {
+        frase[j] = pop(pil);
+        j++;
+    }
+
+    frase[j] = '\0';
 
     destroy(pil);
     free(pil);
