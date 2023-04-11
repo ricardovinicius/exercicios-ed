@@ -48,7 +48,7 @@ hash_table* create_hash_table()
     return new_hash_table;
 }
 
-/*Put a VALUE in the hash table HT in the position KEY.*/
+/*Put a VALUE in the hash table HT in the position KEY++.*/
 void put(hash_table *ht, int key, int value)
 {
     int h = key % HASH_SIZE; //extracts the modulus to dont exceed the bounds
