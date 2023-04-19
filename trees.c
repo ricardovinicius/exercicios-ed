@@ -26,13 +26,11 @@ Postorder: Left -> Right -> Root*/
 
 /*Binary Tree ADT*/
 /*Consists of a integer data and two binary trees as children*/
-typedef struct binary_tree
-{
+typedef struct binary_tree {
     int item;
     binary_tree *left;
     binary_tree *right;
-}
-binary_tree;
+} binary_tree;
 
 
 
